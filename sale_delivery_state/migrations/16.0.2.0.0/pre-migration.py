@@ -28,3 +28,20 @@ def migrate(env, version):
                 ),
             ],
         )
+
+    if not openupgrade.column_exists(
+        env.cr, "sale_order", "delivery_status"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "delivery_status",
+                    "sale.order",
+                    "sale_order",
+                    "selection",
+                    False,
+                    "sale_delivery_state",
+                )
+            ],
+        )
